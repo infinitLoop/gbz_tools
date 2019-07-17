@@ -17,5 +17,5 @@ The monitor script can support either an ADS-1X15 monitor connected to the SDA/S
 
 Download the library:
 ```
-cd ~; sudo git clone https://github.com/InfinitLoop/gbz_tools.git
+cd ~; sudo git clone https://github.com/infinitLoop/gbz_tools.git
 ```
