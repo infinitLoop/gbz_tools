@@ -6,7 +6,6 @@ temperature-controlled fan, volume control, combo button controls and/or purpose
 as well as brightness control for LEDs or screen backlighting, and more.
 
 Credit to HoolyHoo, whose GBZ and MintyPi projects were the basis of much of this: https://raw.github.com/HoolyHoo/
-OSD info read-out pulled from https://github.com/vascofazza/Retropie-open-OSD
 
 ### Hardware Recommended
 
@@ -18,7 +17,7 @@ The monitor script can support either an ADS-1X15 monitor connected to the SDA/S
 
 First,download the library:
 ```
-cd ~ && sudo git clone https://github.com/InfinitLoop/gbz_tools.git
+cd ~ && sudo git clone https://github.com/infinitLoop/gbz_tools.git
 ```
 
 Then pick your options to install...
