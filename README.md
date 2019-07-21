@@ -1,4 +1,4 @@
-# Game-Boy-Zero-Tools
+# Game Boy Zero Tools
 
 This collection is intended to help add customizations to Raspberry-Pi-based retro handhelds, or other projects.  
 It can support "safe" software shutdown, an on-screen battery monitor with customizable colors and placement, 
@@ -73,3 +73,53 @@ For pi 3, edit the file prior to install:
 ```
 sudo nano ~/gbz_tools/spi_screen_juj_install.sh
 ```
+
+## Safe Shutdown
+When doing Safe shutdown that is triggered via the power switch (utilizing a cicuit that will keep power active during shutdown), 
+this should be added to the config.txt file for GPIO mapping.  
+
+edit the file...
+```
+sudo nano /boot/config.txt
+```
+ with this, and update your pin numbers accordingly 
+("shutdown" for the switch-shutdown trigger, and "poweroff" for the stay-alive signal):
+```
+dtoverlay=gpio-poweroff,gpiopin="17",active_low="y"
+dtoverlay=gpio-shutdown,gpio_pin="27"
+```
+
+## Other useful software installations
+
+### AdaFruit I2S Audio installations
+```
+cd ~; curl -sS https://raw.githubusercontent.com/adafruit/Raspberry-Pi-Installer-Scripts/master/i2samp.sh | sudo bash
+```
+Select [i] No [/i] at the prompt during install
+
+### AdaFruit RetroGame GPIO Controls
+```
+cd ~; curl https://raw.githubusercontent.com/adafruit/Raspberry-Pi-Installer-Scripts/master/retrogame.sh > retrogame.sh && sudo bash retrogame.sh
+```
+Edit the button configuration:
+```
+sudo nano /boot/retrogame.cfg
+```
+Something like...
+```
+UP        15  # Joypad up
+DOWN      23  # Joypad down
+LEFT      14  # Joypad left
+RIGHT     22  # Joypad right
+ENTER      5  # 'Start' button
+SPACE      7  # 'Select' button
+A         16  # 'A' button
+B         13  # 'B' button
+X          0  # 'X' button
+Y          6  # 'Y' button
+L          4  # Left shoulder button
+R         26  # Right shoulder button
+H         17  # Hotkey button
+ESC      5 7  # Hold Start+Select to exit ROM
+```
+
