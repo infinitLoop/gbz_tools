@@ -7,13 +7,17 @@ as well as brightness control for LEDs or screen backlighting, and more.
 
 Credit to HoolyHoo, whose GBZ and MintyPi projects were the basis of much of this: https://raw.github.com/HoolyHoo/
 
-OSD controls are from  https://github.com/vascofazza/Retropie-open-OSD *Coming soon
+OSD controls are from  https://github.com/vascofazza/Retropie-open-OSD
 
 ### Hardware Notes
 
 When using the Battery Monitor, it is recommended to use a 10k Ohm resistor in-line between the battery (positive) output and the monitor's (analog) input.
 
-The monitor script can support either an ADS-1X15 monitor connected to the SDA/SCL on the Pi, or a (programmed, or "flashed") MicrController (ie, ATMEGA) serial monitor connected over USB or UART.
+The monitor script can support either an ADS-1X15 monitor connected to the SDA/SCL on the Pi, or a (programmed, or "flashed") MicrController (ie, ATMEGA) 
+serial monitor connected over USB or UART.
+
+For the fan controls, you should use an NPN transistor (example: S8050) that is connected with the middle/positive lead to the GPIO pin you wish to use, 
+and the two Ground leads to the fan's Ground/negative, and to a Ground on the GPIO, respectively.
 
 # Installation
 
