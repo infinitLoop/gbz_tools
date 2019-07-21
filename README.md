@@ -7,7 +7,9 @@ as well as brightness control for LEDs or screen backlighting, and more.
 
 Credit to HoolyHoo, whose GBZ and MintyPi projects were the basis of much of this: https://raw.github.com/HoolyHoo/
 
-### Hardware Recommended
+OSD controls are from  https://github.com/vascofazza/Retropie-open-OSD *Coming soon
+
+### Hardware Notes
 
 When using the Battery Monitor, it is recommended to use a 10k Ohm resistor in-line between the battery (positive) output and the monitor's (analog) input.
 
@@ -75,8 +77,8 @@ sudo nano ~/gbz_tools/spi_screen_juj_install.sh
 ```
 
 ## Safe Shutdown
-When doing Safe shutdown that is triggered via the power switch (utilizing a cicuit that will keep power active during shutdown), 
-this should be added to the config.txt file for GPIO mapping.  
+When doing safe shutdown that is triggered via the power switch (utilizing a cicuit that will keep power active during shutdown), 
+this should be added to the config.txt file for GPIO mapping, instead of using the button triggers above.  
 
 edit the file...
 ```
@@ -123,3 +125,42 @@ H         17  # Hotkey button
 ESC      5 7  # Hold Start+Select to exit ROM
 ```
 
+## Screen Tip
+For Small Screen sizing (320x240), try this.
+edit the file...
+```
+sudo nano /boot/config.txt
+```
+Add in...
+```
+disable_overscan=1
+overscan_scale=1
+
+overscan_left=0
+overscan_right=0
+overscan_top=0
+overscan_bottom=0
+
+framebuffer_width=320
+framebuffer_height=240
+
+# 320x240 60hz 4:3, no margins, progressive
+hdmi_cvt=320 240 60 1 0 0 0
+hdmi_mode=87
+hdmi_group=2
+
+```
+
+## PWM Audio
+When using stero PWM audio, these settings work well.
+edit the file...
+```
+sudo nano /boot/config.txt
+```
+Add this in (change GPIO pins if use Alt PWM):
+```
+dtparam=audio=on
+dtoverlay=pwm-2chan,pin=18,func=2,pin2=13,func2=4
+disable_audio_dither=1
+audio_pwm_mode=0
+```
