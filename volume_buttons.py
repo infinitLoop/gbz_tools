@@ -21,7 +21,7 @@ yLocation = 10
 # Initial volume setting
 vState = 80
 # PCM or Speaker (USB audio)
-sType = "Speaker"  
+sType = "PCM"  
 # Minimum/maximum volume and how much each press adjusts
 vMin = 0
 vMax = 100

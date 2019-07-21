@@ -36,39 +36,36 @@ def shutdown():
 def toggleIcon():
     # toggle state
     global showIcon
-    if showIcon == 1:
-        showIcon = 0
-    else:
-        showIcon = 1
+	showIcon = (not showIcon)
     # kill the current monitor
     system("sudo pkill -f \"python " + batteryMonitor + "\"")
     # write new state
-    with open(toggleFile, 'w') as f:
+    with open(stateFile, 'w') as f:
         f.write(str(showIcon))
     # reload monitor
-    sleep(REFRESH_RATE/2)
+    sleep((REFRESH_RATE/2))
     system("python " + batteryMonitor + " &")
-    sleep(REFRESH_RATE/2)
+    sleep((REFRESH_RATE/2))
 
 #########
 # initial setup
 # read showIcon toggle file
 try:
     with open(stateFile, 'r') as f:
-        showIcon = int(f.read())
+        showIcon = (f.read() == "True")
 except IOError:
-    showIcon = 1
+    showIcon = True
 
 # button interrupts
 if monitorButtonHold:
-    monitorButton = Button(monitorPin, hold_time=monitorHoldTime)
+    monitorButton = Button(monitorPin, hold_time = monitorHoldTime)
     monitorButton.when_held = toggleIcon()
 else:
     monitorButton = Button(monitorPin)
     monitorButton.when_released = toggleIcon()
  
 if doShutdown:
-    shutdownButton = Button(monitorPin, hold_time=shutdownHoldTime)
+    shutdownButton = Button(monitorPin, hold_time = shutdownHoldTime)
     shutdownButton.when_held = shutdown()
     
 pause()

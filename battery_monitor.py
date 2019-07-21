@@ -8,6 +8,7 @@ import Adafruit_ADS1x15
 
 # Set to True to write out voltage readings to screen
 debug = False
+debugLevel = 2  # set to 2 for more output
 
 # Analog Sensor Type :: "ADC" (ADS-1X15) or "SERIAL" (Micro Controller)
 monitorType = "ADC"
@@ -39,8 +40,8 @@ pngView = "%s/Pngview/pngview" % folder
 iconFolder = "%s/icons/%s" % (folder, iconColor)
 videoPlayer = "/usr/bin/omxplayer"
 
-REFRESH_RATE = 4 # how often to read voltage, in seconds
-SAMPLE_RATE = 5 # times to sample voltage, for average reading
+REFRESH_RATE = 8.5 # how often to read voltage, in seconds
+SAMPLE_RATE = 16 # times to sample voltage, for average reading
 VOLT100 = 4.1 # full voltage
 VOLT75 = 3.77
 VOLT50 = 3.60 # halfway
@@ -48,11 +49,21 @@ VOLT25 = 3.48
 VOLT0 = 3.2 # empty voltage
 GAIN = 1  # analog input gain  (leave at 1 unless you have a reason)
 
+## remove sampling delay from refresh rate
+REFRESH_RATE -= (SAMPLE_RATE * 0.5)
+## if we went negative, put us back positive
+if REFRESH_RATE <= 0:
+    REFRESH_RATE = 0.1
+    if debug:
+        print("REFRESH_RATE was not sufficient to cover SAMPLE_RATE (0.5s per sample) - Setting REFRESH_RATE to 0.1")
+
 #########
 
 # Functions
 def changeicon(percent):
-    system(pngView + " -b 0 -l 3000" + str(percent) + " -x " + str(xLocation) + " -y " + str(yLocation) + " " + iconFolder + "/" + "battery" + str(percent) + ".png &")
+    system(pngView + " -b 0 -l 999999" + str(percent) + " -x " + str(xLocation) + " -y " + str(yLocation) + " " + iconFolder + "/" + "battery" + str(percent) + ".png &")
+    if debug and debugLevel==2:
+        print(pngView + " -b 0 -l 999999" + str(percent) + " -x " + str(xLocation) + " -y " + str(yLocation) + " " + iconFolder + "/" + "battery" + str(percent) + ".png &")
     out = check_output("ps aux | grep pngview | awk '{ print $2 }'", shell=True)
     nums = out.split('\n')
     for num in nums:
@@ -72,24 +83,29 @@ def readVoltage():
 
 def readSerial():
     ser.write(str(serialWrite))
-    time.sleep(.3)
-    x = (ser.readline())
+    time.sleep(0.3)
+    x = float(ser.readline())
     return x
 
 def convertVoltage(sensorValue):
-    voltage = float(sensorValue) * (VOLT100 + controlVoltage / adsDivisor)
+    voltage = round(((float(sensorValue) * (VOLT100 + controlVoltage)) / adsDivisor), 4)
     return voltage
 
 def checkVoltageStatus():
+    global batteryStatus
+    global displayWarning
+    
     voltage = 0
-    for x in range(SAMPLE_RATE-1):
+    for x in range(1, SAMPLE_RATE):
         voltage += readVoltage()
-        sleep(.5)
+        if debug and debugLevel==2:
+		    print("Sample:" + str(voltage))
+        sleep(0.5)
         
-    voltage = convertVoltage(voltage / SAMPLE_RATE)
+    voltage = convertVoltage((voltage / SAMPLE_RATE))
     
     if debug:
-        print("Voltage: " + cstr(voltage))
+        print("Voltage: " + str(voltage))
     
     if voltage <= VOLT0:
         if displayWarning:
@@ -109,8 +125,12 @@ def checkVoltageStatus():
         status = 75
     else:
         status = 100
-        
-    if batteryStatus != status and showIcon == 1:
+    
+	if debug and debugLevel==2:
+        print("status: " + str(status)) 
+        print("showIcon: " + str(showIcon))   	
+    
+	if batteryStatus != status and showIcon:
         changeicon(status)
     
     batteryStatus = status
@@ -119,15 +139,19 @@ def getSerialPort():
     for x in range(0, 3):
         try:
             port = serial.Serial('/dev/ttyACM' + str(x), 115200)
+			if debug and debugLevel==2:
+                print('Serial Port Located: ' + str(x))
             return port
-        except serial.SerialException:
-            print('Serial Port Not Located')
+		except serial.SerialException::
+		    continue
+    else:
+        print('Serial Port Not Located')
 
 #########
 
 # initial setup
-showIcon = 1
-batteryStatus = 100
+showIcon = True
+batteryStatus = 0
 
 if monitorType == "SERIAL":
     adsDivisor = 1023.0
@@ -150,11 +174,11 @@ system(pngView + " -b 0 -l 299999 -x " + str(xLocation) + " -y " + str(yLocation
 # read and/or create showIcon toggle file
 try:
     with open(stateFile, 'r') as f:
-        showIcon = int(f.read())
+        showIcon = (f.read() == "True")
 except IOError:
     with open(stateFile, 'w') as f:
-        f.write('1')
-
+        f.write("True")
+    
 # start monitoring
 while True:
     try:

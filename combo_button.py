@@ -1,4 +1,5 @@
 #!/usr/bin/env python2.7
+
 from gpiozero import Button
 from signal import pause
 from subprocess import check_call
@@ -8,16 +9,16 @@ import wiringpi
 import pickle
 
 ## Set the GPIO Pins for the button presses
-hotkeyPin = 7
-volumeUpPin = 22
-volumeDownPin = 23
-brightnessUpPin = 12
-brightnessDownPin = 13
-ledLightPin = 1
-wifiPin = 20
-bluetoothPin = 16
+hotkeyPin = 17
+volumeUpPin = 27
+volumeDownPin = 1
+brightnessUpPin = 15
+brightnessDownPin = 23
+ledLightPin = 12
+wifiPin = 4
+bluetoothPin = 26
 shutdownPin = 14
-monitorPin = 4
+monitorPin = 7
 
 ## Set the Combos to enable
 doVolume = False
@@ -35,13 +36,13 @@ folder = "/home/pi/gbz_tools"
 stateFile = "%s/combo.state" % folder
 batteryMonitor = "%s/battery_monitor.py" % folder
 pngView = "%s/Pngview/pngview2" % folder
-iconFolder = "%s/icons/%s" % (folder, iconColor)
+iconFolder = "%s/icons" % folder
 
 ## VOLUME SETTINGS
 # Initial volume setting
 vState = 80
 # PCM or Speaker (USB audio)
-sType = "Speaker"  
+sType = "PCM"  
 # Minimum/maximum volume and how much each press adjusts
 vMin = 0
 vMax = 100
@@ -137,7 +138,7 @@ def toggleMonitorIcon():
     # kill the current monitor
     system("sudo pkill -f \"python " + batteryMonitor + "\"")
     # write new state
-    writeData(statePath)
+    writeData(stateFile)
     # reload monitor
     sleep(REFRESH_RATE/2)
     system("python " + batteryMonitor + " &")
@@ -189,9 +190,9 @@ comboStates = {'wifi': 1, 'bluetooth': 1, 'volume': vState, 'brightness': bMax, 
 
 # Initial File Setup
 try:
-    comboStates = readData(statePath)
+    comboStates = readData(stateFile)
 except:
-    writeData(statePath)
+    writeData(stateFile)
 finally:
     if doBrightness:
         wiringpi.wiringPiSetup()
@@ -215,5 +216,5 @@ finally:
             system("sudo rfkill block bluetooth")
 
 #  Button Interrupt
-functionBtn.when_pressed = checkFunction
+hotkeyBtn.when_pressed = checkFunction
 pause()
