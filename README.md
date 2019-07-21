@@ -22,27 +22,54 @@ cd ~ && sudo git clone https://github.com/infinitLoop/gbz_tools.git
 
 Then pick your options to install...
 
-### Install the battery monitor
+### Battery monitor install
 ```
 cd ~/gbz_tools && sudo chmod 777 monitor_install.sh && sudo ./monitor_install.sh
 ```
-### Install the dedicated battery monitor (/shutdown) hotkey  (do not install if you want to do this with a combo hotkey control)
+To change the settings for ADC type, battery voltage levels, icon customization, etc, edit the file:
+```
+sudo nano ~/gbz_tools/battery_monitor.py
+```
+### Dedicated battery monitor (/shutdown) button  
+[i] (do not install if you want to do this with a combo hotkey control) [/i]
 ```
 cd ~/gbz_tools && sudo chmod 777 monitor_btn_install.sh && sudo ./monitor_btn_install.sh
 ```
-### Install the dedicated digital volume controls (do not install if you want to do this with a combo hotkey control)
+To set the GPIO pin for the button control and other button settings, edit the file:
+```
+sudo nano ~/gbz_tools/monitor_button.py
+```
+### Dedicated digital volume controls
+[i] (do not install if you want to do this with a combo hotkey control) [/i]
 ```
 cd ~/gbz_tools && sudo chmod 777 volume_btn_install.sh && sudo ./volume_btn_install.sh
 ```
-### Install the combo hotkeys
+To set the GPIO pins for the button controls and other button settings, edit the file:
+```
+sudo nano ~/gbz_tools/volume_buttons.py
+```
+### Combo hotkeys
 ```
 cd ~/gbz_tools && sudo chmod 777 combo_btn_install.sh && sudo ./combo_btn_install.sh
 ```
-### Install the fan controls
+To set the GPIO pins for the button controls, enable the different controls, and other button settings, edit the file:
+```
+sudo nano ~/gbz_tools/combo_button.py
+```
+### Temperature-controlled Fan
 ```
 cd ~/gbz_tools && sudo chmod 777 fan_install.sh && sudo ./fan_install.sh
 ```
-### Install the JUJ SPI Driver (for pi Zero - edit the file for pi3*)
+To set the GPIO pins for the fan control, temperature threshold, and other settings, edit the file:
+```
+sudo nano ~/gbz_tools/fan.py
+```
+### JUJ SPI LCD Screen Driver 
+[i] (for pi Zero - edit the file first for pi3/a/b/+) [/i]
 ```
 cd ~/gbz_tools && sudo chmod 777 spi_screen_juj_install.sh && sudo ./spi_screen_juj_install.sh
+```
+For pi 3, edit the file prior to install:
+```
+sudo nano ~/gbz_tools/spi_screen_juj_install.sh
 ```
