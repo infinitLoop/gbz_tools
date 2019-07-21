@@ -31,7 +31,7 @@ To change the settings for ADC type, battery voltage levels, icon customization,
 sudo nano ~/gbz_tools/battery_monitor.py
 ```
 ### Dedicated battery monitor (/shutdown) button  
-[i] (do not install if you want to do this with a combo hotkey control) [/i]
+<i> (do not install if you want to do this with a combo hotkey control) </i>
 ```
 cd ~/gbz_tools && sudo chmod 777 monitor_btn_install.sh && sudo ./monitor_btn_install.sh
 ```
@@ -40,7 +40,7 @@ To set the GPIO pin for the button control and other button settings, edit the f
 sudo nano ~/gbz_tools/monitor_button.py
 ```
 ### Dedicated digital volume controls
-[i] (do not install if you want to do this with a combo hotkey control) [/i]
+<i> (do not install if you want to do this with a combo hotkey control) </i>
 ```
 cd ~/gbz_tools && sudo chmod 777 volume_btn_install.sh && sudo ./volume_btn_install.sh
 ```
@@ -65,7 +65,7 @@ To set the GPIO pins for the fan control, temperature threshold, and other setti
 sudo nano ~/gbz_tools/fan.py
 ```
 ### JUJ SPI LCD Screen Driver 
-[i] (for pi Zero - edit the file first for pi3/a/b/+) [/i]
+<i> (for pi Zero - edit the file first for pi3/a/b/+) </i>
 ```
 cd ~/gbz_tools && sudo chmod 777 spi_screen_juj_install.sh && sudo ./spi_screen_juj_install.sh
 ```
@@ -95,7 +95,7 @@ dtoverlay=gpio-shutdown,gpio_pin="27"
 ```
 cd ~; curl -sS https://raw.githubusercontent.com/adafruit/Raspberry-Pi-Installer-Scripts/master/i2samp.sh | sudo bash
 ```
-Select [i] No [/i] at the prompt during install
+Select <i> No </i> at the prompt during install
 
 ### AdaFruit RetroGame GPIO Controls
 ```
