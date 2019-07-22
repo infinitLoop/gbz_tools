@@ -18,11 +18,14 @@ The monitor script can support either an ADS-1X15 monitor connected to the SDA/S
 serial monitor connected over USB or UART.
 
 
-<i>AdaFruit Powerboost 1000C Example (and any PSU with an Engage pin:</i>
+Connecting via Microcontroller should look the same as these ADS examples, for the battery and power, but you would connect via USB or UART instead of the SDA/SCL to the pi.
+
+<i>AdaFruit Powerboost 1000C Example (or any PSU that uses an [En]gage pin):</i>
 ![powerboost_example](/images/powerboost_battery_monitor_example.png)
 
-<i>Generic Power Supply example (main power flow is also cut off at the DPDT switch):</i>
+<i>Generic Power Supply example (the difference being that the main power flow is also cut off at the DPDT switch):</i>
 ![generic_example](/images/generic_battery_monitor_example.png)
+
 
 For the fan controls, you should use an NPN transistor (example: S8050) that is connected with the middle/positive lead to the GPIO pin you wish to use, 
 and the two Ground leads to the fan's Ground/negative, and to a Ground on the GPIO, respectively.
