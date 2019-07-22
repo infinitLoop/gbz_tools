@@ -11,12 +11,15 @@ OSD controls are from  https://github.com/vascofazza/Retropie-open-OSD
 
 ### Hardware Notes
 
-When using the Battery Monitor, it is recommended to use a 10k Ohm resistor in-line between the battery (positive) output and the monitor's (analog) input.
+When using the Battery Monitor, it is recommended to use a 10k Ohm resistor in-line between the battery (positive) output and the monitor's (analog) input, 
+and that you cut the power when not in use by running the connection through a DPDT switch.
 
 The monitor script can support either an ADS-1X15 monitor connected to the SDA/SCL on the Pi, or a (programmed, or "flashed") MicrController (ie, ATMEGA) 
 serial monitor connected over USB or UART.
 
+AdaFruit Powerboost 1000C Example (and any PSU with an Engage pin:
 ![powerboost_example](/images/powerboost_battery_monitor_example.png)
+Generic Power Supply example (main power flow is also cut off at teh DPDT switch)
 ![generic_example](/images/generic_battery_monitor_example.png)
 
 For the fan controls, you should use an NPN transistor (example: S8050) that is connected with the middle/positive lead to the GPIO pin you wish to use, 
