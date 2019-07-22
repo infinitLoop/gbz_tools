@@ -12,14 +12,14 @@ OSD controls are from  https://github.com/vascofazza/Retropie-open-OSD
 ### Hardware Notes
 
 When using the Battery Monitor, it is recommended to use a 10k Ohm resistor in-line between the battery (positive) output and the monitor's (analog) input, 
-and that you cut the power when not in use by running the connection through a DPDT switch.
+and that you cut the battery power to the monitor when not in use by running the connection through a DPDT switch, to prevent power leakage.
 
 The monitor script can support either an ADS-1X15 monitor connected to the SDA/SCL on the Pi, or a (programmed, or "flashed") MicrController (ie, ATMEGA) 
 serial monitor connected over USB or UART.
 
 AdaFruit Powerboost 1000C Example (and any PSU with an Engage pin:
 ![powerboost_example](/images/powerboost_battery_monitor_example.png)
-Generic Power Supply example (main power flow is also cut off at teh DPDT switch)
+Generic Power Supply example (main power flow is also cut off at the DPDT switch)
 ![generic_example](/images/generic_battery_monitor_example.png)
 
 For the fan controls, you should use an NPN transistor (example: S8050) that is connected with the middle/positive lead to the GPIO pin you wish to use, 
@@ -62,10 +62,11 @@ To set the GPIO pins for the button controls and other button settings, edit the
 sudo nano ~/gbz_tools/volume_buttons.py
 ```
 ### Combo hotkeys
+These include Battery Monitor toggle, Digital Volume, Safe Shutdown, Brightness (Screen or LED), Bluetooth toggle, Wifi toggle, and On-sreen informational readout 
 ```
 cd ~/gbz_tools && sudo chmod 777 combo_btn_install.sh && sudo ./combo_btn_install.sh
 ```
-To set the GPIO pins for the button controls, enable the different controls, and other button settings, edit the file:
+To set the GPIO pins for the button controls, enable the different controls, as wel as other button settings, edit the file:
 ```
 sudo nano ~/gbz_tools/combo_button.py
 ```
@@ -88,7 +89,7 @@ sudo nano ~/gbz_tools/spi_screen_juj_install.sh
 ```
 
 ## Safe Shutdown
-When doing safe shutdown that is triggered via the power switch (utilizing a cicuit that will keep power active during shutdown), 
+When doing safe shutdown that is triggered via the power switch (utilizing a circuit that will keep power active during the software shutdown), 
 this should be added to the config.txt file for GPIO mapping, instead of using the button triggers above.  
 
 edit the file...
