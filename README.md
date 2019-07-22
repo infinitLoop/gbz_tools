@@ -16,8 +16,12 @@ When using the Battery Monitor, it is recommended to use a 10k Ohm resistor in-l
 The monitor script can support either an ADS-1X15 monitor connected to the SDA/SCL on the Pi, or a (programmed, or "flashed") MicrController (ie, ATMEGA) 
 serial monitor connected over USB or UART.
 
+![powerboost_example](/images/powerboost_battery_monitor_example.png)
+![generic_example](/images/generic_battery_monitor_example.png)
+
 For the fan controls, you should use an NPN transistor (example: S8050) that is connected with the middle/positive lead to the GPIO pin you wish to use, 
 and the two Ground leads to the fan's Ground/negative, and to a Ground on the GPIO, respectively.
+![fan_example](/images/fan.png)
 
 # Installation
 
@@ -131,11 +135,12 @@ ESC      5 7  # Hold Start+Select to exit ROM
 
 ## Screen Tip
 For Small Screen sizing (320x240), try this.
-edit the file...
+
+Edit the file:
 ```
 sudo nano /boot/config.txt
 ```
-Add in...
+Add in:
 ```
 disable_overscan=1
 overscan_scale=1
@@ -157,7 +162,8 @@ hdmi_group=2
 
 ## PWM Audio
 When using stero PWM audio, these settings work well.
-edit the file...
+
+Edit the file:
 ```
 sudo nano /boot/config.txt
 ```
