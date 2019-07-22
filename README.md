@@ -17,9 +17,11 @@ and that you cut the battery power to the monitor when not in use by running the
 The monitor script can support either an ADS-1X15 monitor connected to the SDA/SCL on the Pi, or a (programmed, or "flashed") MicrController (ie, ATMEGA) 
 serial monitor connected over USB or UART.
 
-AdaFruit Powerboost 1000C Example (and any PSU with an Engage pin:
+
+<i>AdaFruit Powerboost 1000C Example (and any PSU with an Engage pin:</i>
 ![powerboost_example](/images/powerboost_battery_monitor_example.png)
-Generic Power Supply example (main power flow is also cut off at the DPDT switch)
+
+<i>Generic Power Supply example (main power flow is also cut off at the DPDT switch):</i>
 ![generic_example](/images/generic_battery_monitor_example.png)
 
 For the fan controls, you should use an NPN transistor (example: S8050) that is connected with the middle/positive lead to the GPIO pin you wish to use, 
