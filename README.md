@@ -62,7 +62,7 @@ To set the GPIO pins for the button controls and other button settings, edit the
 sudo nano ~/gbz_tools/volume_buttons.py
 ```
 ### Combo hotkeys
-These include Battery Monitor toggle, Digital Volume, Safe Shutdown, Brightness (Screen or LED), Bluetooth toggle, Wifi toggle, and On-sreen informational readout 
+Options include: Battery Monitor toggle, Digital Volume, Safe Shutdown, Brightness (Screen or LED), Bluetooth toggle, Wifi toggle, and On-screen informational readout 
 ```
 cd ~/gbz_tools && sudo chmod 777 combo_btn_install.sh && sudo ./combo_btn_install.sh
 ```
