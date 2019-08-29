@@ -18,7 +18,7 @@ The monitor script can support either an ADS-1X15 monitor connected to the SDA/S
 serial monitor connected over USB or UART.
 
 
-Connecting via Microcontroller should look the same as these ADS examples, for the battery and power, but you would connect via USB or UART instead of the SDA/SCL to the pi.
+Connecting via Microcontroller should look the same as these for the battery and power, but you would connect via USB or UART instead of the SDA/SCL to the pi.
 
 <i>AdaFruit Powerboost 1000C Example (or any PSU that uses an [En]gage pin):</i>
 ![powerboost_example](/images/powerboost_battery_monitor_example.png)
@@ -37,60 +37,79 @@ First,download the library:
 ```
 cd ~ && sudo git clone https://github.com/infinitLoop/gbz_tools.git
 ```
-
 Then pick your options to install...
 
 ### Battery monitor install
 ```
-cd ~/gbz_tools && sudo chmod 777 monitor_install.sh && sudo ./monitor_install.sh
+
+sudo chmod 777 ~/gbz_tools/monitor_install.sh && sudo ~/gbz_tools/./monitor_install.sh
+
 ```
 To change the settings for ADC type, battery voltage levels, icon customization, etc, edit the file:
 ```
+
 sudo nano ~/gbz_tools/battery_monitor.py
+
 ```
+
 ### Dedicated battery monitor (/shutdown) button  
 <i> (do not install if you want to do this with a combo hotkey control) </i>
 ```
-cd ~/gbz_tools && sudo chmod 777 monitor_btn_install.sh && sudo ./monitor_btn_install.sh
+sudo chmod 777 ~/gbz_tools/monitor_btn_install.sh && sudo ~/gbz_tools/./monitor_btn_install.sh
 ```
 To set the GPIO pin for the button control and other button settings, edit the file:
 ```
 sudo nano ~/gbz_tools/monitor_button.py
 ```
+
 ### Dedicated digital volume controls
 <i> (do not install if you want to do this with a combo hotkey control) </i>
 ```
-cd ~/gbz_tools && sudo chmod 777 volume_btn_install.sh && sudo ./volume_btn_install.sh
+sudo chmod 777 ~/gbz_tools/volume_btn_install.sh && sudo ~/gbz_tools/./volume_btn_install.sh
 ```
 To set the GPIO pins for the button controls and other button settings, edit the file:
 ```
 sudo nano ~/gbz_tools/volume_buttons.py
 ```
+
 ### Combo hotkeys
 Options include: Battery Monitor toggle, Digital Volume, Safe Shutdown, Brightness (Screen or LED), Bluetooth toggle, Wifi toggle, and On-screen informational readout 
 ```
-cd ~/gbz_tools && sudo chmod 777 combo_btn_install.sh && sudo ./combo_btn_install.sh
+
+sudo chmod 777 ~/gbz_tools/combo_btn_install.sh && sudo ~/gbz_tools/./combo_btn_install.sh
+
 ```
 To set the GPIO pins for the button controls, enable the different controls, as wel as other button settings, edit the file:
 ```
+
 sudo nano ~/gbz_tools/combo_button.py
+
 ```
+
 ### Temperature-controlled Fan
 ```
-cd ~/gbz_tools && sudo chmod 777 fan_install.sh && sudo ./fan_install.sh
+
+sudo chmod 777 ~/gbz_tools/fan_install.sh && sudo ~/gbz_tools/./fan_install.sh
+
 ```
 To set the GPIO pins for the fan control, temperature threshold, and other settings, edit the file:
 ```
+
 sudo nano ~/gbz_tools/fan.py
+
 ```
 ### JUJ SPI LCD Screen Driver 
 <i> (for pi Zero - edit the file first for pi3/a/b/+) </i>
 ```
-cd ~/gbz_tools && sudo chmod 777 spi_screen_juj_install.sh && sudo ./spi_screen_juj_install.sh
+
+sudo chmod 777 ~/gbz_tools/spi_screen_juj_install.sh && sudo ~/gbz_tools/./spi_screen_juj_install.sh
+
 ```
 For pi 3, edit the file prior to install:
 ```
+
 sudo nano ~/gbz_tools/spi_screen_juj_install.sh
+
 ```
 
 ## Safe Shutdown
@@ -112,20 +131,27 @@ dtoverlay=gpio-shutdown,gpio_pin="27"
 
 ### AdaFruit I2S Audio installations
 ```
+
 cd ~; curl -sS https://raw.githubusercontent.com/adafruit/Raspberry-Pi-Installer-Scripts/master/i2samp.sh | sudo bash
+
 ```
 Select <i> No </i> at the prompt during install
 
 ### AdaFruit RetroGame GPIO Controls
 ```
+
 cd ~; curl https://raw.githubusercontent.com/adafruit/Raspberry-Pi-Installer-Scripts/master/retrogame.sh > retrogame.sh && sudo bash retrogame.sh
+
 ```
 Edit the button configuration:
 ```
+
 sudo nano /boot/retrogame.cfg
+
 ```
 Something like...
 ```
+
 UP        15  # Joypad up
 DOWN      23  # Joypad down
 LEFT      14  # Joypad left
@@ -140,17 +166,21 @@ L          4  # Left shoulder button
 R         26  # Right shoulder button
 H         17  # Hotkey button
 ESC      5 7  # Hold Start+Select to exit ROM
+
 ```
 
 ## Screen Tip
-For Small Screen sizing (320x240), try this.
+For Small Screen sizing (320x240) on SPI, try this.
 
 Edit the file:
 ```
+
 sudo nano /boot/config.txt
+
 ```
 Add in:
 ```
+
 disable_overscan=1
 overscan_scale=1
 
@@ -179,7 +209,13 @@ sudo nano /boot/config.txt
 Add this in (change GPIO pins if use Alt PWM):
 ```
 dtparam=audio=on
-dtoverlay=pwm-2chan,pin=18,func=2,pin2=13,func2=4
 disable_audio_dither=1
 audio_pwm_mode=0
+##stereo
+dtoverlay=pwm-2chan,pin=18,func=2,pin2=13,func2=4
+##mono
+#dtoverlay=pwm,pin=18,func=2
+##alt mono
+#dtoverlay=pwm,pin=13,func=4
+
 ```
