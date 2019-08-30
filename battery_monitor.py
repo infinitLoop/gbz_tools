@@ -14,7 +14,7 @@ debugLevel = 2  # set to 2 for more output
 monitorType = "ADC"
 
 # ADS Type :: "1015" (12bit) or "1115" (16bit)
-adsType = "1115"
+adsType = "1015"
 
 # Serial port on controller (only when using SERIAL type)
 serialPort = 1  # use getSerialPort() if you aren't sure
@@ -28,7 +28,7 @@ autoShutdownLow = False
 
 ### Icon configuration
 # Valid values: white, blue, green, yellow, red, silver, pink, orange
-iconColor = "white"
+iconColor = "silver"
 # Screen location
 xLocation = 650
 yLocation = 10
@@ -42,11 +42,11 @@ videoPlayer = "/usr/bin/omxplayer"
 
 REFRESH_RATE = 8.5 # how often to read voltage, in seconds
 SAMPLE_RATE = 16 # times to sample voltage, for average reading
-VOLT100 = 4.1 # full voltage
-VOLT75 = 3.77
-VOLT50 = 3.60 # halfway
-VOLT25 = 3.48
-VOLT0 = 3.2 # empty voltage
+VOLT100 = 4.0 # full voltage
+VOLT75 = 3.7
+VOLT50 = 3.50 # halfway
+VOLT25 = 3.2
+VOLT0 = 2.9 # empty voltage
 GAIN = 1  # analog input gain  (leave at 1 unless you have a reason)
 
 ## remove sampling delay from refresh rate
@@ -99,7 +99,7 @@ def checkVoltageStatus():
     for x in range(1, SAMPLE_RATE):
         voltage += readVoltage()
         if debug and debugLevel==2:
-		    print("Sample:" + str(voltage))
+            print("Sample: " + str(voltage))
         sleep(0.5)
         
     voltage = convertVoltage((voltage / SAMPLE_RATE))
@@ -126,11 +126,11 @@ def checkVoltageStatus():
     else:
         status = 100
     
-	if debug and debugLevel==2:
+    if debug and debugLevel==2:
         print("status: " + str(status)) 
-        print("showIcon: " + str(showIcon))   	
+        print("showIcon: " + str(showIcon))       
     
-	if batteryStatus != status and showIcon:
+    if batteryStatus != status and showIcon:
         changeicon(status)
     
     batteryStatus = status
@@ -139,11 +139,11 @@ def getSerialPort():
     for x in range(0, 3):
         try:
             port = serial.Serial('/dev/ttyACM' + str(x), 115200)
-			if debug and debugLevel==2:
+            if debug and debugLevel==2:
                 print('Serial Port Located: ' + str(x))
             return port
-		except serial.SerialException::
-		    continue
+        except serial.SerialException:
+            continue
     else:
         print('Serial Port Not Located')
 

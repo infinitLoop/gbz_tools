@@ -98,14 +98,14 @@ To set the GPIO pins for the fan control, temperature threshold, and other setti
 sudo nano ~/gbz_tools/fan.py
 
 ```
-### JUJ SPI LCD Screen Driver 
-<i> (for pi Zero - edit the file first for pi3/a/b/+) </i>
+### ILI9341 SPI LCD Screen Driver 
+<i> (this is set up for pi Zero - for pi3/a/b/+, edit the file before executing) </i>
 ```
 
 sudo chmod 777 ~/gbz_tools/spi_screen_juj_install.sh && sudo ~/gbz_tools/./spi_screen_juj_install.sh
 
 ```
-For pi 3, edit the file prior to install:
+For pi3, edit the file prior to install:
 ```
 
 sudo nano ~/gbz_tools/spi_screen_juj_install.sh
@@ -114,7 +114,7 @@ sudo nano ~/gbz_tools/spi_screen_juj_install.sh
 
 ## Safe Shutdown
 When doing safe shutdown that is triggered via the power switch (utilizing a circuit that will keep power active during the software shutdown), 
-this should be added to the config.txt file for GPIO mapping, instead of using the button triggers above.  
+this should be added to the config.txt file for GPIO mapping, instead of using the button triggers above.
 
 edit the file...
 ```
@@ -126,6 +126,10 @@ sudo nano /boot/config.txt
 dtoverlay=gpio-poweroff,gpiopin="17",active_low="y"
 dtoverlay=gpio-shutdown,gpio_pin="27"
 ```
+NOTE: If using RetroPie 4.3 or older, the overlay for "gpio-shutdown" may not be installed. it can be installed (instructions can be found in the first post here: 
+https://sudomod.com/forum/viewtopic.php?f=43&t=8054 ), but an easier way is to use the shutdown script above, and leave the "gpio-shutdown" overlay
+out of the config.txt.  You will still need to use the "gpio-poweroff" overlay to signal to the power supply to stay active during the software shutdown.
+
 
 ## Other useful software installations
 

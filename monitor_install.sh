@@ -13,6 +13,7 @@ sudo chmod 777 /home/pi/gbz_tools/Pngview/pngview
 
 if ! grep '^\/home\/pi\/gbz_tools\/battery_monitor.py \&' /etc/rc.local; then
     sudo sed -i '/\"exit 0\"/!s/exit 0/python \/home\/pi\/gbz_tools\/battery_monitor.py \&\nexit 0/g' /etc/rc.local
+    echo 'added script to startup.'
 fi
 
 config_txt=/boot/config.txt

@@ -36,7 +36,7 @@ def shutdown():
 def toggleIcon():
     # toggle state
     global showIcon
-	showIcon = (not showIcon)
+    showIcon = (not showIcon)
     # kill the current monitor
     system("sudo pkill -f \"python " + batteryMonitor + "\"")
     # write new state
