@@ -139,7 +139,20 @@ out of the config.txt.  You will still need to use the "gpio-poweroff" overlay t
 cd ~; curl -sS https://raw.githubusercontent.com/adafruit/Raspberry-Pi-Installer-Scripts/master/i2samp.sh | sudo bash
 
 ```
-Select <i> No </i> at the prompt during install
+Select <i> No </i> at the prompt during install, for the background process
+
+to fix splashscreen video, run one of these:
+```
+
+## RetroPie 4.3-
+
+sudo sed -i 's/omxplayer -o both -b --layer 10000/omxplayer -o alsa -b --layer 10000/g' /opt/retropie/supplementary/splashscreen/asplashscreen.sh
+
+## RetroPie 4.4+
+
+sudo sed -i 's/omxplayer -o both -b --layer 10000/omxplayer -o alsa -b --layer 10000/g' /etc/init.d/asplashscreen
+   
+```
 
 ### AdaFruit RetroGame GPIO Controls
 ```
